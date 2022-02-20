@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AdminAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
@@ -19,10 +20,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::group(['prefix' => 'v1'], function () {
 
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::get('/login', function () {
+        return response()->json('Invalid auth', 401);
+    })->name('login');
+    
+
+    Route::post('/create', [AuthController::class, 'register']);
 
     Route::post('/login', [AuthController::class, 'login']);
+
+    Route::group(['prefix' => 'admin'], function () {
+        Route::post('/create', [AdminAuthController::class, 'register']);
+
+        Route::post('/login', [AdminAuthController::class, 'login']);
+    });
+
     
 });
