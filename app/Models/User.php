@@ -24,7 +24,8 @@ class User extends Authenticatable
         'password',
         'uuid',
         'phone_number',
-        'address'
+        'address',
+        'is_admin'
     ];
 
     /**
