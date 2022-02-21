@@ -27,6 +27,7 @@ class Controller extends BaseController
 
     public function formatInputErrorResponse(string $message)
     {
+        
         return response()->json(['status' => false, 'message' => $message], 422);
     }
 

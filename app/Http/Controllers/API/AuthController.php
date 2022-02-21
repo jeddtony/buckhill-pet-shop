@@ -10,10 +10,16 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    /**
+     * Create a new user.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
     public function register(Request $request)
     {
 
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             'first_name' => 'required|max:55',
             'last_name' => 'required|max:55',
             'email' => 'email|required|unique:users',
@@ -22,7 +28,10 @@ class AuthController extends Controller
             'phone_number' => 'required|max:255',
         ]);
 
-        
+        if ($validator->fails()) {
+            return $this->formatInputErrorResponse($validator->errors()->first());
+        }
+        $validatedData = $request->all();
         $validatedData['password'] = bcrypt($request->password);
         $validatedData['uuid'] = Str::uuid();
 
@@ -39,6 +48,12 @@ class AuthController extends Controller
         return $this->formatCreatedResponse('Registration successful', $data);
     }
 
+    /**
+     * Create a new login session for a user.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
     public function login(Request $request)
     {
 
@@ -49,7 +64,7 @@ class AuthController extends Controller
 
 
         if($validator->fails()) {
-            $result = $this->formatInputErrorResponse($validator->errors());
+            $result = $this->formatInputErrorResponse($validator->errors()->first());
             return $result;
         }
 
