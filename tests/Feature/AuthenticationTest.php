@@ -10,12 +10,6 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->artisan('passport:install');
-    }
     /**
      * A basic feature test example.
      *
