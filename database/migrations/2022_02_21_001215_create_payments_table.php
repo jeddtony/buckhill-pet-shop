@@ -13,6 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
+        if(!Schema::hasTable('payments'))
+        {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
@@ -20,6 +22,7 @@ return new class extends Migration
             $table->json('details');
             $table->timestamps();
         });
+    }
     }
 
     /**
