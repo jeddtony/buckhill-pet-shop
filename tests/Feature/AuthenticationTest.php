@@ -77,4 +77,15 @@ class AuthenticationTest extends TestCase
             ->assertStatus(200);
     }
 
+     /**
+     * Test that authenticated routes are protected.
+     *
+     * @return void
+     */
+    public function testAuthenticatedRoutesAreProtected()
+    {
+        $this->json('GET', 'api/v1/user', [], ['Accept' => 'application/json'])
+            ->assertStatus(401);
+    }
+
 }
