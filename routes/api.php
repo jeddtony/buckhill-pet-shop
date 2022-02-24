@@ -42,6 +42,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('/user', [UserController::class, 'getUserDetails']);
+
+        Route::post('/payment', [PaymentController::class, 'store']);
     });
-    
 });
