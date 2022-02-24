@@ -4,6 +4,8 @@ use App\Http\Controllers\API\AdminAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,5 +40,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/login', [AdminAuthController::class, 'login']);
     });
 
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('/user', [UserController::class, 'getUserDetails']);
+    });
     
 });
