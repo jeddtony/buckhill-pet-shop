@@ -44,5 +44,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/user', [UserController::class, 'getUserDetails']);
 
         Route::post('/payment', [PaymentController::class, 'store']);
+
+        // create admin routes
+        Route::get('/admin/users', [UserController::class, 'users'])->middleware('isAdmin');
     });
 });
