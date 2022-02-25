@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Payment\CashOnDeliveryPayment;
+use App\Payment\CreditCardPayment;
 use Tests\TestCase;
 
 class PaymentValidationTest extends TestCase
@@ -47,7 +48,7 @@ class PaymentValidationTest extends TestCase
      *
      * @return void
      */
-    public function testCashOnDeliveryCanValidateCanFail() {
+    public function testCashOnDeliveryValidationCanFail() {
 
         // create input data
           $input = [
@@ -64,4 +65,50 @@ class PaymentValidationTest extends TestCase
          // assert validation fails
          $this->assertTrue($validator->fails());
      }
+
+          /**
+     * Can validate credit card payment.
+     *
+     * @return void
+     */
+    public function testCreditCardCanValidateSuccessfully() {
+
+        // create input data
+        $input = [
+            'holder_name' => 'John Doe',
+            'number' => '1234567890123456',
+            'cvv' => '123',
+            'expiry_date' => '12/20',
+        ];
+ 
+         // create validator
+         $creditCardPayment = new CreditCardPayment;
+         $validator = $creditCardPayment->validate($input);
+          
+         // assert validation passes
+         $this->assertTrue(!$validator->fails());
+     }
+ 
+     /**
+      * Can validate cash on delivery payment fails.
+      *
+      * @return void
+      */
+     public function testCreditCardValidationCanFail() {
+ 
+         // create input data
+        $input = [
+            'holder_name' => 'John Doe',
+            'number' => '1234567890123456',
+            'cvv' => '123',
+        ];
+  
+          // create validator
+         $creditCardPayment = new CreditCardPayment;
+         $validator = $creditCardPayment->validate($input);
+          
+          // assert validation fails
+          $this->assertTrue($validator->fails());
+      }
+
 }

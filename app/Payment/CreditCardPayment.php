@@ -3,7 +3,7 @@
 namespace App\Payment;
 use Illuminate\Support\Facades\Validator;
 
-class CreditCashPayment implements Payment
+class CreditCardPayment implements Payment
 {
     public function validate($details)
     {
