@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Payment\BankTransferPayment;
 use App\Payment\CashOnDeliveryPayment;
 use App\Payment\CreditCardPayment;
 use Tests\TestCase;
@@ -66,7 +67,7 @@ class PaymentValidationTest extends TestCase
          $this->assertTrue($validator->fails());
      }
 
-          /**
+    /**
      * Can validate credit card payment.
      *
      * @return void
@@ -90,7 +91,7 @@ class PaymentValidationTest extends TestCase
      }
  
      /**
-      * Can validate cash on delivery payment fails.
+      * Can validate credit card payment fails.
       *
       * @return void
       */
@@ -107,6 +108,49 @@ class PaymentValidationTest extends TestCase
          $creditCardPayment = new CreditCardPayment;
          $validator = $creditCardPayment->validate($input);
           
+          // assert validation fails
+          $this->assertTrue($validator->fails());
+      }
+
+      /**
+     * Can bank transfer payment.
+     *
+     * @return void
+     */
+    public function testBankTransferCanValidateSuccessfully() {
+
+        // create input data
+        $input = [
+            'swift' => '123456789',
+            'iban' => '1234567890123456',
+            'name' => 'John Doe',
+            'ref_code' => '123456789',
+        ];
+         // create validator
+         $bankTransfer = new BankTransferPayment;
+         $validator = $bankTransfer->validate($input);
+          
+         // assert validation passes
+         $this->assertTrue(!$validator->fails());
+     }
+ 
+     /**
+      * Can validate bank transfer payment fails.
+      *
+      * @return void
+      */
+     public function testBankTransferValidationCanFail() {
+ 
+         // create input data
+        $input = [
+            'swift' => '123456789',
+            'iban' => '1234567890123456',
+        ];
+  
+          // create validator
+          $bankTransfer = new BankTransferPayment;
+          $validator = $bankTransfer->validate($input);
+           
           // assert validation fails
           $this->assertTrue($validator->fails());
       }
