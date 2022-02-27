@@ -133,8 +133,6 @@ class PaymentController extends Controller
      *
      * @return Response
      */
-
-
     public function index()
     {
         $payments = Payment::all();
