@@ -51,4 +51,16 @@ class PaymentController extends Controller
         // return success response
         return $this->formatCreatedResponse('Order created successfully', $order);
     }
+
+    /**
+     * Get all payments.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $payments = Payment::all();
+
+        return $this->formatSuccessResponse('Payments retrieved successfully', $payments);
+    }
 }
