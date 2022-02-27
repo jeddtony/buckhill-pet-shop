@@ -49,6 +49,10 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Get one payment
         Route::get('/payments/{uuid}', [PaymentController::class, 'show']);
+
+        // Update a payment
+        Route::put('/payments/{uuid}', [PaymentController::class, 'update']);
+        
         // create admin routes
         Route::get('/admin/users', [UserController::class, 'users'])->middleware('isAdmin');
     });
