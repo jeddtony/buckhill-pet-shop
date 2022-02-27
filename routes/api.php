@@ -56,6 +56,6 @@ Route::group(['prefix' => 'v1'], function () {
         // delete a payment
         Route::delete('/payments/{uuid}', [PaymentController::class, 'destroy']);
         // create admin routes
-        Route::get('/admin/users', [UserController::class, 'users'])->middleware('isAdmin');
+        Route::get('/admin/user-listing', [UserController::class, 'users'])->middleware('isAdmin');
     });
 });

@@ -50,7 +50,7 @@ class UserController extends Controller
      /**
      * 
      *  @OA\Get(
-     *      path="/api/v1/admin/users",
+     *      path="/api/v1/admin/user-listing",
      *      operationId="getUsers",
      *      tags={"Admin"},
      *      summary="Get list of Users",
