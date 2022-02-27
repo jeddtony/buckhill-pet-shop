@@ -20,8 +20,8 @@ class UserFactory extends Factory
     {
         return [
             'uuid' => Str::uuid(),
-            'first_name' => $this->faker->name(),
-            'last_name' => $this->faker->name(),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
             'is_admin' => $this->faker->boolean(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
