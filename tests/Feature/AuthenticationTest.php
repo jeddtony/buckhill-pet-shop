@@ -38,7 +38,7 @@ class AuthenticationTest extends TestCase
             "phone_number"=> "2992389489"
         ];
 
-        $this->json('POST', 'api/v1/create', $userData, ['Accept' => 'application/json'])
+        $this->json('POST', 'api/v1/user/create', $userData, ['Accept' => 'application/json'])
             ->assertStatus(201);
     }
 
@@ -57,7 +57,7 @@ class AuthenticationTest extends TestCase
             "phone_number"=> "2992389489"
         ];
 
-        $this->json('POST', 'api/v1/create', $userData, ['Accept' => 'application/json'])
+        $this->json('POST', 'api/v1/user/create', $userData, ['Accept' => 'application/json'])
             ->assertStatus(422);
     }
 
@@ -73,7 +73,7 @@ class AuthenticationTest extends TestCase
             "password" => "demo12345",
         ];
 
-        $this->json('POST', 'api/v1/login', $userData, ['Accept' => 'application/json'])
+        $this->json('POST', 'api/v1/user/login', $userData, ['Accept' => 'application/json'])
             ->assertStatus(200);
     }
 
