@@ -39,6 +39,6 @@ class Controller extends BaseController
     public function formatDeletedResponse(string $message)
     {
         
-        return response()->json(['status' => false, 'message' => $message], 200);
+        return response()->json(['status' => true, 'message' => $message], 200);
     }
 }
