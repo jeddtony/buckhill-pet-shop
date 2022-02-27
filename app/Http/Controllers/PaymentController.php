@@ -63,4 +63,22 @@ class PaymentController extends Controller
 
         return $this->formatSuccessResponse('Payments retrieved successfully', $payments);
     }
-}
+
+    /**
+     * Get a payment.
+     *
+     * @param  string  $uuid
+     * @return Response
+     */
+    public function show($uuid)
+    {
+        $payment = Payment::where('uuid', $uuid)->first();
+
+        if (!$payment) {
+            return $this->formatNotFoundResponse('Payment not found');
+        }
+
+        return $this->formatSuccessResponse('Payment retrieved successfully', $payment);
+    }
+
+   }
