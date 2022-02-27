@@ -10,9 +10,77 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    
     /**
-     * Create a new user.
+     * @OA\Post(
+     *      path="/api/v1/user/create",
+     *      tags={"Users"},
+     *      summary="Register new user",
+     *      operationId="register",
+     *      @OA\Parameter(
+     *          name="first_name",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="last_name",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="email",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="address",
+     *          in="query",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="password",
+     *          in="query",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="phone_number",
+     *          in="query",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Registration successful"
+     *      ),
+     *    @OA\Response(
+     *      response=404,
+     *      description="Not found"
+     *   ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     * )
      *
+     * Register new user.
      * @param  Request  $request
      * @return Response
      */
@@ -48,12 +116,48 @@ class AuthController extends Controller
         return $this->formatCreatedResponse('Registration successful', $data);
     }
 
-    /**
-     * Create a new login session for a user.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
+    /** @OA\Post(
+    *      path="/api/v1/user/login",
+    *      tags={"Users"},
+    *      summary="Login user",
+    *      operationId="login",
+    *      @OA\Parameter(
+    *          name="email",
+    *          in="query",
+    *          @OA\Schema(
+    *              type="string"
+    *          )
+    *      ),
+    *      @OA\Parameter(
+    *          name="password",
+    *          in="query",
+    *          @OA\Schema(
+    *              type="string"
+    *          )
+    *      ),
+    *     
+    *      @OA\Response(
+     *          response=200,
+     *          description="Login successful"
+     *      ),
+     *  @OA\Response(
+     *      response=404,
+     *      description="Not found"
+     *   ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     * )
+    * Create a new login session for a user.
+    *
+    * @param  Request  $request
+    * @return Response
+    */
     public function login(Request $request)
     {
 
@@ -61,7 +165,6 @@ class AuthController extends Controller
             'email'    => 'required',
             'password' => 'required'
         ]);
-
 
         if($validator->fails()) {
             $result = $this->formatInputErrorResponse($validator->errors()->first());
