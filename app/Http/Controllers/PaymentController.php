@@ -124,4 +124,23 @@ class PaymentController extends Controller
 
         return $this->formatSuccessResponse('Payment updated successfully', $payment);
     }
+
+     /**
+     * Remove the payment resource from storage.
+     *
+     * @param  \App\Models\Payment  $payment
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy( $uuid)
+    {
+        // delete payment
+        $payment = Payment::where('uuid', $uuid)->first();
+
+        // delete payment
+        $payment->delete();
+
+        // return deleted response
+        return $this->formatDeletedResponse('Payment deleted successfully');
+
+    }
 }
