@@ -11,12 +11,59 @@ use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
-    /**
+     /**
      * Create a new payment.
      *
      * @param  Request  $request
      * @return Response
      */
+
+     /**
+     * 
+     * @OA\Post(
+     *      path="/api/v1/payments/create",
+     *      operationId="storePayments",
+     *      tags={"Payments"},
+     *      summary="Store Payments",
+     *      description="Returns the created payment",
+     *      security={{"passport": {"*"}}},
+     *    @OA\RequestBody(
+     *        @OA\MediaType( mediaType="application/json",
+     *           @OA\Schema(
+     *             @OA\Property(property="type", type="string", description="Value must be 'cash_on_delivery', 'bank_transfer', 'credit_card' "),
+     *              @OA\Property(property="details", type="array",
+     *             @OA\Items(
+     *                @OA\Property(property="swift", type="string", description="Swift code"),
+     *               @OA\Property(property="iban", type="string", description="IBAN code"),
+     *             @OA\Property(property="name", type="string", description="Name of the payment"),
+     *            @OA\Property(property="ref_code", type="string", description="Reference code"),
+     * )
+     *             ),
+     * ),
+     * ),
+     * ),
+     *                  
+     *      @OA\Response(
+     *          response=201,
+     *          description="Payment created successfully",
+     *         
+     *       ),
+     *     
+     *      @OA\Response(
+     *      response=404,
+     *      description="Not found"
+     *   ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *     )
+     */
+    
     public function store(Request $request)
     {
         
@@ -57,6 +104,38 @@ class PaymentController extends Controller
      *
      * @return Response
      */
+
+     /**
+     * 
+     *  @OA\Get(
+     *      path="/api/v1/payments",
+     *      operationId="getPaymentsList",
+     *      tags={"Payments"},
+     *      summary="Get list of Payments",
+     *      description="Returns list of payments",
+     *     security={{"passport": {"*"}}},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       
+     *       ),
+     *      @OA\Response(
+     *      response=404,
+     *      description="Not found"
+     *   ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *     )
+     *     )
+     */
+    
+
     public function index()
     {
         $payments = Payment::all();
@@ -64,7 +143,39 @@ class PaymentController extends Controller
         return $this->formatSuccessResponse('Payments retrieved successfully', $payments);
     }
 
-    /**
+     /**
+     * 
+     *  @OA\Get(
+     *      path="/api/v1/payments/{uuid}",
+     *      operationId="getOnePaymentDetail",
+     *      tags={"Payments"},
+     *      summary="Get details of a payment",
+     *      description="Returns a payment detail",
+     *  @OA\Parameter(name="uuid", in="path", description="Uuidd of payment", required=true,
+     *        @OA\Schema(type="string")
+     *    ),
+     *     security={{"passport": {"*"}}},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       
+     *       ),
+     *      @OA\Response(
+     *      response=404,
+     *      description="Not found"
+     *   ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *     )
+     *     )
+     *
+    
      * Get a payment.
      *
      * @param  string  $uuid
@@ -75,13 +186,62 @@ class PaymentController extends Controller
         $payment = Payment::where('uuid', $uuid)->first();
 
         if (!$payment) {
-            return $this->formatNotFoundResponse('Payment not found');
+            return $this->notFoundResponse('Payment not found');
         }
 
         return $this->formatSuccessResponse('Payment retrieved successfully', $payment);
     }
 
     /**
+     *  /**
+     * 
+     * @OA\Put(
+     *      path="/api/v1/payments/{uuid}",
+     *      operationId="updatePayments",
+     *      tags={"Payments"},
+     *      summary="Update a payment",
+     *      description="Returns the updated payment",
+     *      security={{"passport": {"*"}}},
+     * @OA\Parameter(name="uuid", in="path", description="Uuidd of payment", required=true,
+     *        @OA\Schema(type="string")
+     *    ),
+     *    @OA\RequestBody(
+     *        @OA\MediaType( mediaType="application/json",
+     *           @OA\Schema(
+     *             @OA\Property(property="type", type="string", description="Value must be 'cash_on_delivery', 'bank_transfer', 'credit_card' "),
+     *              @OA\Property(property="details", type="array",
+     *             @OA\Items(
+     *                @OA\Property(property="swift", type="string", description="Swift code"),
+     *               @OA\Property(property="iban", type="string", description="IBAN code"),
+     *             @OA\Property(property="name", type="string", description="Name of the payment"),
+     *            @OA\Property(property="ref_code", type="string", description="Reference code"),
+     * )
+     *             ),
+     * ),
+     * ),
+     * ),
+     *                  
+     *      @OA\Response(
+     *          response=201,
+     *          description="Payment created successfully",
+     *         
+     *       ),
+     *     
+     *      @OA\Response(
+     *      response=404,
+     *      description="Not found"
+     *   ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *     )
+     *
+     * 
      * Update a payment.
      *
      * @param Request $request
@@ -93,7 +253,7 @@ class PaymentController extends Controller
         $payment = Payment::where('uuid', $uuid)->first();
 
         if (!$payment) {
-            return $this->formatNotFoundResponse('Payment not found');
+            return $this->notFoundResponse('Payment not found');
         }
 
         $validator = Validator::make($request->all(), [
