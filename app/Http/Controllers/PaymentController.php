@@ -286,6 +286,38 @@ class PaymentController extends Controller
     }
 
      /**
+     * 
+     *  @OA\Delete(
+     *      path="/api/v1/payments/{uuid}",
+     *      operationId="getOnePaymentDetail",
+     *      tags={"Payments"},
+     *      summary="Get details of a payment",
+     *      description="Returns a payment detail",
+     *  @OA\Parameter(name="uuid", in="path", description="Uuidd of payment", required=true,
+     *        @OA\Schema(type="string")
+     *    ),
+     *     security={{"passport": {"*"}}},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       
+     *       ),
+     *      @OA\Response(
+     *      response=404,
+     *      description="Not found"
+     *   ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     *     )
+     *     )
+     *
+    
      * Remove the payment resource from storage.
      *
      * @param  \App\Models\Payment  $payment
