@@ -10,6 +10,79 @@ use Illuminate\Support\Str;
 
 class AdminAuthController extends Controller
 {
+     /**
+     * @OA\Post(
+     *      path="/api/v1/admin/create",
+     *      tags={"Admin"},
+     *      summary="Register new admin",
+     *      operationId="registerAdmin",
+     *      @OA\Parameter(
+     *          name="first_name",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="last_name",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="email",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="address",
+     *          in="query",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="password",
+     *          in="query",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="phone_number",
+     *          in="query",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Registration successful"
+     *      ),
+     *    @OA\Response(
+     *      response=404,
+     *      description="Not found"
+     *   ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     * )
+     *
+     * Register new admin.
+     * @param  Request  $request
+     * @return Response
+     */
     public function register(Request $request)
     {
 
@@ -40,6 +113,48 @@ class AdminAuthController extends Controller
         return $this->formatCreatedResponse('Registration successful', $data);
     }
 
+        /** @OA\Post(
+    *      path="/api/v1/admin/login",
+    *      tags={"Admin"},
+    *      summary="Login admin",
+    *      operationId="loginAdmin",
+    *      @OA\Parameter(
+    *          name="email",
+    *          in="query",
+    *          @OA\Schema(
+    *              type="string"
+    *          )
+    *      ),
+    *      @OA\Parameter(
+    *          name="password",
+    *          in="query",
+    *          @OA\Schema(
+    *              type="string"
+    *          )
+    *      ),
+    *     
+    *      @OA\Response(
+     *          response=200,
+     *          description="Login successful"
+     *      ),
+     *  @OA\Response(
+     *      response=404,
+     *      description="Not found"
+     *   ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal server error"
+     *      )
+     * )
+    * Create a new login session for a admin.
+    *
+    * @param  Request  $request
+    * @return Response
+    */
     public function login(Request $request)
     {
 
