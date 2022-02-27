@@ -81,4 +81,47 @@ class PaymentController extends Controller
         return $this->formatSuccessResponse('Payment retrieved successfully', $payment);
     }
 
-   }
+    /**
+     * Update a payment.
+     *
+     * @param Request $request
+     * @param string $uuid
+     * @return Response
+     */
+    public function update(Request $request, $uuid)
+    {
+        $payment = Payment::where('uuid', $uuid)->first();
+
+        if (!$payment) {
+            return $this->formatNotFoundResponse('Payment not found');
+        }
+
+        $validator = Validator::make($request->all(), [
+            'type' => 'required|in:credit_card,cash_on_delivery,bank_transfer',
+            'details' => 'required|array',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->formatInputErrorResponse($validator->errors()->first());
+        }
+
+        // Make specific validation for each payment type
+        $paymentType = $request->type;
+        $class = "App\\Payment\\" . Str::studly($paymentType) . "Payment";
+
+        $paymentClass = new $class;
+
+        $validatedPayment = $paymentClass->validate($request->details);
+
+        if($validatedPayment->fails()) {
+            return $this->formatInputErrorResponse($validatedPayment->errors()->first());
+        }
+
+        $payment->update([
+            'type' => $paymentType,
+            'details' => json_encode($request->details),
+        ]);
+
+        return $this->formatSuccessResponse('Payment updated successfully', $payment);
+    }
+}
