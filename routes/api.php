@@ -43,7 +43,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('/user', [UserController::class, 'getUserDetails']);
 
-        Route::post('/payment', [PaymentController::class, 'store']);
+        Route::post('/payments/create', [PaymentController::class, 'store']);
 
         Route::get('/payments', [PaymentController::class, 'index']);
 
@@ -52,7 +52,9 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Update a payment
         Route::put('/payments/{uuid}', [PaymentController::class, 'update']);
-        
+
+        // delete a payment
+        Route::delete('/payments/{uuid}', [PaymentController::class, 'destroy']);
         // create admin routes
         Route::get('/admin/users', [UserController::class, 'users'])->middleware('isAdmin');
     });
