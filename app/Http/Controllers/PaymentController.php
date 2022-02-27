@@ -99,12 +99,7 @@ class PaymentController extends Controller
         return $this->formatCreatedResponse('Order created successfully', $order);
     }
 
-    /**
-     * Get all payments.
-     *
-     * @return Response
-     */
-
+   
      /**
      * 
      *  @OA\Get(
@@ -133,8 +128,12 @@ class PaymentController extends Controller
      *      )
      *     )
      *     )
+     
+     * Get all payments.
+     *
+     * @return Response
      */
-    
+
 
     public function index()
     {
