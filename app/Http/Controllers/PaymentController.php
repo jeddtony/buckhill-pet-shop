@@ -8,6 +8,7 @@ use App\Uuid\CustomUuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Http\Response;
 
 class PaymentController extends Controller
 {
@@ -317,7 +318,7 @@ class PaymentController extends Controller
     
      * Remove the payment resource from storage.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  string  $uuid
      * @return \Illuminate\Http\Response
      */
     public function destroy( $uuid)

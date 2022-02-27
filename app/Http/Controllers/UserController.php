@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -36,11 +37,11 @@ class UserController extends Controller
      *     )
      *     )
      
-     * Get all payments.
+     * Get user details.
      *
      * @return Response
      */
-    public function getUserDetails(Request $request)
+    public function getUserDetails()
     {
         //
         $user = auth()->user();
@@ -76,11 +77,11 @@ class UserController extends Controller
      *     )
      *     )
      
-     * Get all payments.
-     *
+     * Get all users.
+    
      * @return Response
      */
-    public function users(Request $request)
+    public function users()
     {
         // return list of users that are not admins
         $users = User::where('is_admin', false)->get();

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -81,7 +83,7 @@ class AdminAuthController extends Controller
      *
      * Register new admin.
      * @param  Request  $request
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function register(Request $request)
     {
