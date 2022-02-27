@@ -77,4 +77,28 @@ class PaymentTest extends AuthenticatedTestCase
 
         $response->assertStatus(200);
     }
+
+    /**
+     * Test that a user can view a payment
+     *
+     * @return void
+     */
+    public function testUserCanViewPayment() {
+
+        // create a payment;
+        $payment = Payment::create([
+            'type' => 'bank_transfer',
+            'details' => json_encode([
+                'swift' => '100',
+                'iban' => 'USD',
+                'name' => 'Test payment',
+                'ref_code' => 'dummy_ref_code'
+            ]),
+            'uuid' => 'dummy_uuid',
+        ]);
+
+        $response = $this->get('api/v1/payments/'.$payment->uuid);
+
+        $response->assertStatus(200);
+    }
 }
