@@ -37,7 +37,7 @@ class AdminMiddlewareTest extends TestCase
      * @return void
      */
     public function testAdminCanViewListOfUsers() {
-        $response = $this->get('api/v1/admin/users');
+        $response = $this->get('api/v1/admin/user-listing');
 
         $response->assertStatus(200);
     }
