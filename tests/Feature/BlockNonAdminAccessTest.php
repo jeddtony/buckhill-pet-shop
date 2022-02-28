@@ -21,18 +21,7 @@ class BlockNonAdminAccessTest extends TestCase
         $this->actingAs($this->user, 'api');
     }
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
-
+   
     /**
      * Test that a non-admin can not view list of users
      *
@@ -40,7 +29,7 @@ class BlockNonAdminAccessTest extends TestCase
      */
     public function testNonAdminCannotViewUsers() {
 
-        $response = $this->get('api/v1/admin/users');
+        $response = $this->get('api/v1/admin/user-listing');
 
         $response->assertStatus(401);
     }
